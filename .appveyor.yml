@@ -1,9 +1,5 @@
-after_build:
+build_script:
   - ps: 'cd senrenbanka.murasame.qqbot; .\build.bat ; 7z a QQBot.zip bin\**\*'
-
-build:
-  parallel: true
-  project: senrenbanka.murasame.qqbot.sln
 
 image: Visual Studio 2019
 configuration: Release
@@ -13,9 +9,11 @@ test: off
 #  Build Cache                    #
 #---------------------------------#
 
-cache:
-- packages -> **\packages.config
-
 artifacts:
 - path: senrenbanka.murasame.qqbot\QQBot.zip
   name: QQBot
+
+cache:
+  - packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
+  - '%LocalAppData%\NuGet\Cache'    # NuGet < v3
+  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
