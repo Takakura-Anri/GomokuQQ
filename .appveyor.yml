@@ -1,0 +1,15 @@
+build_script:
+  - ps: 'cd senrenbanka.murasame.qqbot; .\build.bat ; 7z a myapp.zip %APPVEYOR_BUILD_FOLDER%\senrenbanka.murasame.qqbot\bin\**\*'
+
+test: off
+
+#---------------------------------#
+#  Build Cache                    #
+#---------------------------------#
+
+cache:
+- packages -> **\packages.config
+
+artifacts:
+- path: senrenbanka.murasame.qqbot\bin\**
+  name: QQBot
