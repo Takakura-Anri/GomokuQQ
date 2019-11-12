@@ -1,6 +1,12 @@
-build_script:
-  - ps: 'cd senrenbanka.murasame.qqbot; .\build.bat ; 7z a myapp.zip %APPVEYOR_BUILD_FOLDER%\senrenbanka.murasame.qqbot\bin\**\*'
+after_build:
+  - ps: 'cd senrenbanka.murasame.qqbot; .\build.bat ; 7z a QQBot.zip bin\**\*'
 
+build:
+  parallel: true
+  project: senrenbanka.murasame.qqbot.sln
+
+image: Visual Studio 2019
+configuration: Release
 test: off
 
 #---------------------------------#
@@ -11,5 +17,5 @@ cache:
 - packages -> **\packages.config
 
 artifacts:
-- path: senrenbanka.murasame.qqbot\bin\**
+- path: senrenbanka.murasame.qqbot\QQBot.zip
   name: QQBot
